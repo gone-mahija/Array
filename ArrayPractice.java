@@ -225,6 +225,23 @@ class ArrayPrograms {
         return nums3;
     }
 
+    public int[] insertElement(int[] nums, int position, int element) {
+        nums = Arrays.copyOf(nums, nums.length + 1);
+        for (int i = nums.length - 1; i > position; i--) {
+            nums[i] = nums[i - 1];
+        }
+        nums[position] = element;
+        return nums;
+    }
+
+    public int[] deleteElement(int[] nums, int position) {
+        for (int i = position; i < nums.length - 1; i++) {
+            nums[i] = nums[i + 1];
+        }
+        nums = Arrays.copyOf(nums, nums.length - 1);
+        return nums;
+    }
+
     public int elementFrequency(int[] nums, int target) {
         int count = 0;
         for (int i = 0; i < nums.length; i++) {
@@ -278,12 +295,18 @@ public class ArrayPractice {
                         + Arrays.toString(ap.swapFirstLast(new int[] { 1, 2, 3, 4 })));
         System.out.println("Whether the element is present or not : " + ap.isPresent(new int[] { 3, 6, 9 }, 6));
         System.out.println("Array Elements seperated by commas : " + ap.commaSeperate(new int[] { 1, 2, 3 }));
-        // System.out.println(
-        // "Merge two arrays : " + Arrays.toString(ap.mergeArrays(new int[] { 1, 2 },
-        // new int[] { 3, 4 })));
-        // ap.insertElement(new int[] { 1, 2, 4 }, 3, 2);
+
         System.out.println(
-                "Frequency of an element is : " + ap.elementFrequency(new int[] { 1, 2, 2, 3, 2 }, 2));
+                "Merge two arrays : " + Arrays.toString(ap.mergeArrays(new int[] { 1, 2 },
+                        new int[] { 3, 4 })));
+        System.out.println("Insert an element at specific index : "
+                + Arrays.toString(ap.insertElement(new int[] { 1, 2, 4, 5 }, 2, 3)));
+
+        System.out
+                .println(
+                        "Delete an element at specific index : "
+                                + Arrays.toString(ap.deleteElement(new int[] { 1, 2, 3, 4, 5 }, 2)));
+        System.out.println("Frequency of an element : " + ap.elementFrequency(new int[] { 1, 2, 2, 3, 2 }, 2));
         ap.sumTarget(new int[] { 1, 2, 3, 4 }, 5);
     }
 }
