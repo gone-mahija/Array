@@ -323,4 +323,5 @@ How to Use This Guide
 with more questions are worth understanding deeply).
 • For every question, trace through the given example by hand before coding — write out what happens step by
 step.
+
 • After solving with help, wait 2 days and re-solve without looking, exactly as you planned.
