@@ -262,6 +262,69 @@ class ArrayPrograms {
     }
 }
 
+class SlidingWindow {
+    public SlidingWindow() {
+    }
+
+    public int maximumSum(int[] nums, int k) {
+        int sum = 0;
+        for (int i = 0; i < k; i++) {
+            sum += nums[i];
+        }
+        int max = sum;
+        for (int i = 1; i <= nums.length - k; i++) {
+            sum = sum - nums[i - 1] + nums[i + k - 1];
+            max = Math.max(max, sum);
+        }
+
+        return max;
+    }
+
+    public int[] firstNegative(int[] nums, int k) {
+        int[] negatives = new int[nums.length - k + 1];
+        int negative = 0;
+        for (int i = 0; i < k; i++) {
+            if (nums[i] < 0) {
+                negative = nums[i];
+                break;
+            }
+        }
+        negatives[0] = negative;
+        for (int i = 1; i <= nums.length - k; i++) {
+            if (nums[i - 1] == negative) {
+                for (int j = i; j < i + k; j++) {
+                    if (nums[j] < 0) {
+                        negatives[i] = nums[j];
+                        negative = nums[j];
+                        break;
+                    }
+                }
+
+            } else {
+                negatives[i] = negative;
+            }
+        }
+        return negatives;
+    }
+
+    public int longestSubArray(int[] nums, int k) {
+        int sum = 0;
+        int j = 0;
+        int max = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum = sum + nums[i];
+
+            while (sum > k) {
+                sum = sum - nums[j];
+                j++;
+            }
+            if (sum == k)
+                max = Math.max(max, i - j + 1);
+        }
+        return max;
+    }
+}
+
 public class ArrayPractice {
 
     public static void main(String[] args) {
@@ -308,5 +371,12 @@ public class ArrayPractice {
                                 + Arrays.toString(ap.deleteElement(new int[] { 1, 2, 3, 4, 5 }, 2)));
         System.out.println("Frequency of an element : " + ap.elementFrequency(new int[] { 1, 2, 2, 3, 2 }, 2));
         ap.sumTarget(new int[] { 1, 2, 3, 4 }, 5);
+
+        SlidingWindow sw = new SlidingWindow();
+        System.out.println("Maximum sum of a subarray of size k : " + sw.maximumSum(new int[] { 2, 1, 5, 1, 3, 2 }, 3));
+        System.out.println("First negative number in every window of size k : "
+                + Arrays.toString(sw.firstNegative(new int[] { 12, -1, -7, 8, -15, 30 }, 3)));
+        System.out.println("Length of the longest subarray with a sum equal to k : "
+                + sw.longestSubArray(new int[] { 1, 2, 3, 7, 5 }, 12));
     }
 }
